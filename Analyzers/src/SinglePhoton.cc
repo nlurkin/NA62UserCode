@@ -117,6 +117,7 @@ void SinglePhoton::InitHist(){
 	BookCounter("Single_StopIn_Else");
 	BookCounter("Single_StopIn_LKr");
 	NewEventFraction("Single_Detector");
+	SetSignificantDigits("Single_Detector", 2);
 	AddCounterToEventFraction("Single_Detector", "Inside");
 	AddCounterToEventFraction("Single_Detector", "Single_StopIn_Straw1");
 	AddCounterToEventFraction("Single_Detector", "Single_StopIn_Straw2");
@@ -138,6 +139,7 @@ void SinglePhoton::InitHist(){
 	BookCounter("No_StopIn_Else");
 	BookCounter("No_StopIn_LKr");
 	NewEventFraction("No_Detector");
+	SetSignificantDigits("No_Detector", 2);
 	AddCounterToEventFraction("No_Detector", "Inside");
 	AddCounterToEventFraction("No_Detector", "No_StopIn_Straw1");
 	AddCounterToEventFraction("No_Detector", "No_StopIn_Straw2");
@@ -159,6 +161,7 @@ void SinglePhoton::InitHist(){
 	BookCounter("Multi_StopIn_Else");
 	BookCounter("Multi_StopIn_LKr");
 	NewEventFraction("Multi_Detector");
+	SetSignificantDigits("Multi_Detector", 2);
 	AddCounterToEventFraction("Multi_Detector", "Inside");
 	AddCounterToEventFraction("Multi_Detector", "Multi_StopIn_Straw1");
 	AddCounterToEventFraction("Multi_Detector", "Multi_StopIn_Straw2");
@@ -187,8 +190,8 @@ void SinglePhoton::DefineMCSimple(MCSimple *fMCSimple){
 }
 
 void SinglePhoton::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
-	if(fMCSimple.fStatus == MCSimple::kMissing) return;
-	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
+	if(fMCSimple.status == MCSimple::kMissing) return;
+	if(fMCSimple.status == MCSimple::kEmpty) return;
 
 
 	TRecoLKrEvent *lkr = (TRecoLKrEvent*)GetEvent("LKr");

@@ -31,6 +31,9 @@ class tes_gen : public Analyzer
 	private:
 		void Publish();
 	protected:
+		int NHits;
+		double x[5];
+
 		//Add the variables that should be registered as output
 
 		//Add your parameters (allowed : bool, char, string, TString, int, long, float, double)

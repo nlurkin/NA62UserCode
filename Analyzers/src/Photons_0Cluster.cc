@@ -37,6 +37,7 @@ void Photons_0Cluster::InitHist(){
 	BookHisto("ClusterOutLKr", new TH2D("ClusterOutLKr", "Extrapolated position of photon on LKr (outside LKr)", 200, -2000, 2000, 200, -2000, 2000));
 	BookHisto("OutsideLKr", new TH1D("OutsideLKr", "Number of events outside LKr acceptance (blarge angle)", 1, 0, 1));
 	BookHisto("BeamPipe", new TH1D("BeamPipe", "Number of events outside LKr acceptance (beam pipe)", 1, 0, 1));
+	BookHisto("beamPipe", new TH1D("beamPipe", "Number of events in beam pipe", 1, 0, 1));
 
 	BookHisto("endPos", new TH1D("endPos", "EndPos of Photons inside LKr", 200, 140000, 300000));
 }
@@ -49,8 +50,8 @@ void Photons_0Cluster::DefineMCSimple(MCSimple *fMCSimple){
 }
 
 void Photons_0Cluster::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
-	if(fMCSimple.fStatus == MCSimple::kMissing) return;
-	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
+	if(fMCSimple.status == MCSimple::kMissing) return;
+	if(fMCSimple.status == MCSimple::kEmpty) return;
 
 	TVector3 pos;
 	int LKrStartPos = 240413;
@@ -60,14 +61,8 @@ void Photons_0Cluster::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEv
 	//fGeom->FillPath(fMCSimple[22][0]->GetProdPos().Vect(), fMCSimple[22][0]->GetInitialMomentum());
 	pos = propagate(fMCSimple[22][0]->GetProdPos().Vect(), fMCSimple[22][0]->GetInitialMomentum(), LKrStartPos);
 	radius = sqrt(pow(pos.X(), 2) + pow(pos.Y(), 2));
-	if(radius<180){
-		FillHisto("BeamPipe", 0);
-		outside = true;
-	}
-	else if(radius>1000){
-		FillHisto("OutsideLKr", 0);
-		outside = true;
-	}
+	if(radius<180) FillHisto("beamPipe", 0);
+	if(radius<180 || radius>1000) outside = true;
 
 	if(outside){
 		FillHisto("ClusterOutLKr", pos.x(), pos.Y());

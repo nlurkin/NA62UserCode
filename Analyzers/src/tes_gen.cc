@@ -45,7 +45,9 @@ tes_gen::tes_gen(BaseAnalysis *ba) : Analyzer(ba)
 	//	RequestTree("GigaTracker", new TGigaTrackerEvent);
 	RequestTree("LKr", new TRecoLKrEvent);
 
-	CreateStandardTree("test", "TestTree");
+	OpenNewTree("test", "TestTree");
+	AddBranch<int>("test", "NHits", &NHits);
+	AddBranch<double[5]>("test", "xxx", &x);
 	//Initialize DetectorAcceptance if needed
 	//use of global instance
 	//	fDetectorAcceptanceInstance = GetDetectorAcceptanceInstance();
@@ -136,9 +138,15 @@ void tes_gen::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
 	//If the analyzer can run without MC data, comment the line
 	//if(fMCSimple.fStatus == MCSimple::kEmpty){printNoMCWarning();return;}
 
-	ExportEvent();
-	CreateStandardCandidate("test")->SetPDGcode(11);
+	//ExportEvent();
+	//CreateStandardCandidate("test")->SetPDGcode(11);
+	NHits = 5;
 
+	//x = new double[NHits];
+	for(int i=0; i<NHits; i++){
+		x[i] = i;
+	}
+	FillTrees();
 	//You can retrieve MC particles from the fMCSimple Set with (return a vector<KinePart*>
 	//	fMCSimple["particleName"]
 	//	fMCSimple[pdgID]

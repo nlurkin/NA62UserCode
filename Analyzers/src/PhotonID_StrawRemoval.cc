@@ -55,7 +55,7 @@ void PhotonID_StrawRemoval::DefineMCSimple(MCSimple *fMCSimple){
 }
 
 void PhotonID_StrawRemoval::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
-	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
+	if(fMCSimple.status == MCSimple::kEmpty) return;
 
 	//LKr definition
 	int LKrStartPos = 240413;
@@ -88,8 +88,8 @@ void PhotonID_StrawRemoval::Process(int iEvent, MCSimple &fMCSimple, Event* MCTr
 	OutputState state;
 
 	//What kind of event do we have?
-	if(fMCSimple.Size(22)>0) isGamma = true;
-	else if(fMCSimple.Size(211)>0) isPip = true;
+	if(fMCSimple.size(22)>0) isGamma = true;
+	else if(fMCSimple.size(211)>0) isPip = true;
 
 	//Get Vertex
 	TVector3 vertex;
@@ -102,8 +102,7 @@ void PhotonID_StrawRemoval::Process(int iEvent, MCSimple &fMCSimple, Event* MCTr
 	//}
 
 	//Get clusters
-	//vector<TRecoLKrCandidate*> lkr = *(vector<TRecoLKrCandidate*>*)GetOutput("associatePhotons.LKrClusters", state);
-	vector<TRecoLKrCandidate*> lkr = *GetOutput<vector<TRecoLKrCandidate*> >("associatePhotons.LKrClusters", state);
+	vector<TRecoLKrCandidate*> lkr = *(vector<TRecoLKrCandidate*>*)GetOutput("associatePhotons.LKrClusters", state);
 	if(state!=kOValid){
 		FillHisto("BadLKrClusters", 0);
 		return;
@@ -194,6 +193,25 @@ void PhotonID_StrawRemoval::Process(int iEvent, MCSimple &fMCSimple, Event* MCTr
 	}
 #endif
 
+	//is the cluster still present
+	bool found1 = false;
+	//bool found2 = false;
+	bool found2 = true;
+	for(unsigned int i=0; i<LKrClusters.size(); i++){
+		if(LKrClusters[i]==clusterG1) found1 = true;
+		//if(LKrClusters[i]==clusterG2) found2 = true;
+	}
+
+	//if(LKrClusters.size()==2) FillHisto("ID2Clusters", 0);
+	if(found1 && found2){
+		//FillHisto("goodEvents", thresholdstraw);
+		//if(LKrClusters.size()==2) FillHisto("IDSuccess", 0);
+	}
+	else{
+		//ExportEvent();
+	}
+	first = false;
+	//}
 	FillHisto("multiplicity", LKrClusters.size());
 }
 
