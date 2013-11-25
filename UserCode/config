@@ -1,0 +1,7 @@
+analyzers = tes_gen
+exec = piggg
+
+libs = 
+libsdirs = 
+
+includedirs = 
