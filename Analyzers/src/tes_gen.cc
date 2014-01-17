@@ -146,7 +146,7 @@ void tes_gen::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
 	for(int i=0; i<NHits; i++){
 		x[i] = i;
 	}
-	FillTrees();
+	ExportEvent();
 	//You can retrieve MC particles from the fMCSimple Set with (return a vector<KinePart*>
 	//	fMCSimple["particleName"]
 	//	fMCSimple[pdgID]

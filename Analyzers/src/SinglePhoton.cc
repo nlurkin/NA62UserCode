@@ -190,8 +190,8 @@ void SinglePhoton::DefineMCSimple(MCSimple *fMCSimple){
 }
 
 void SinglePhoton::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
-	if(fMCSimple.status == MCSimple::kMissing) return;
-	if(fMCSimple.status == MCSimple::kEmpty) return;
+	if(fMCSimple.fStatus == MCSimple::kMissing) return;
+	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 
 
 	TRecoLKrEvent *lkr = (TRecoLKrEvent*)GetEvent("LKr");

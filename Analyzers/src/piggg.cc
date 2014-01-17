@@ -62,8 +62,8 @@ void piggg::InitHist(){
 	//Example
 	//	BookHisto("PartEnergy", new TH2I("PartEnergy", "Energy as a function of particle", 0, 0, 0, Bins, MinEnergy, MaxEnergy));
 
-	BookHisto("W", new TH1D("W", "W distribution", 20, 0, 1));
-	BookHisto("T_star", new TH1D("T_star", "T^* Distribution", 100, 0, 1000));
+	BookHisto("W", new TH1D("W", "W distribution", 20, 0, 1), false, "toto/blah");
+	BookHisto("T_star", new TH1D("T_star", "T^* Distribution", 100, 0, 1000), false, "/toto/blah/");
 	BookHisto("T_star_artis", new TH1D("T_star_artis", "T^* Distribution artisanale", 100, 0, 1000));
 	BookHisto("rad_gamma_E", new TH1D("rad_gamma_E", "Radiative photon energy", 100, 0, 75000));
 	//Booking of counters and creation of EventFraction can be done here

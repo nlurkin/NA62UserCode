@@ -180,22 +180,22 @@ void piggg_gen::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
 	// Acceptance related
 	IncrementCounter("TotalEvents");
 
-	fDetectorAcceptanceInstance->FillPath(fMCSimple["pi+"][0]->GetProdPos().Vect(), pip.Vect(), 0.01);
+	fDetectorAcceptanceInstance->FillPath(fMCSimple["pi+"][0]->GetProdPos().Vect(), pip.Vect());
 	pipAcceptance = fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kSpectrometer);
 	if(!pipAcceptance) IncrementCounter("Pi+Fail");
 
 	fDetectorAcceptanceInstance->CleanDetPath();
-	fDetectorAcceptanceInstance->FillPath(fMCSimple["gamma"][0]->GetProdPos().Vect(), fMCSimple["gamma"][0]->GetInitialMomentum(), 0.01);
+	fDetectorAcceptanceInstance->FillPath(fMCSimple["gamma"][0]->GetProdPos().Vect(), fMCSimple["gamma"][0]->GetInitialMomentum());
 	g1Acceptance = fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr);
 	if(!g1Acceptance) IncrementCounter("g1Fail");
 
 	fDetectorAcceptanceInstance->CleanDetPath();
-	fDetectorAcceptanceInstance->FillPath(fMCSimple["gamma"][1]->GetProdPos().Vect(), fMCSimple["gamma"][1]->GetInitialMomentum(), 0.01);
+	fDetectorAcceptanceInstance->FillPath(fMCSimple["gamma"][1]->GetProdPos().Vect(), fMCSimple["gamma"][1]->GetInitialMomentum());
 	g2Acceptance = fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr);
 	if(!g2Acceptance) IncrementCounter("g2Fail");
 
 	fDetectorAcceptanceInstance->CleanDetPath();
-	fDetectorAcceptanceInstance->FillPath(fMCSimple["gamma"][2]->GetProdPos().Vect(), fMCSimple["gamma"][2]->GetInitialMomentum(), 0.01);
+	fDetectorAcceptanceInstance->FillPath(fMCSimple["gamma"][2]->GetProdPos().Vect(), fMCSimple["gamma"][2]->GetInitialMomentum());
 	g3Acceptance = fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr);
 	if(!g3Acceptance) IncrementCounter("g3Fail");
 

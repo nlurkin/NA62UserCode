@@ -50,8 +50,8 @@ void Photons_0Cluster::DefineMCSimple(MCSimple *fMCSimple){
 }
 
 void Photons_0Cluster::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
-	if(fMCSimple.status == MCSimple::kMissing) return;
-	if(fMCSimple.status == MCSimple::kEmpty) return;
+	if(fMCSimple.fStatus == MCSimple::kMissing) return;
+	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 
 	TVector3 pos;
 	int LKrStartPos = 240413;

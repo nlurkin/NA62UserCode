@@ -55,7 +55,7 @@ void PhotonID_StrawRemoval::DefineMCSimple(MCSimple *fMCSimple){
 }
 
 void PhotonID_StrawRemoval::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
-	if(fMCSimple.status == MCSimple::kEmpty) return;
+	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 
 	//LKr definition
 	int LKrStartPos = 240413;
@@ -88,8 +88,8 @@ void PhotonID_StrawRemoval::Process(int iEvent, MCSimple &fMCSimple, Event* MCTr
 	OutputState state;
 
 	//What kind of event do we have?
-	if(fMCSimple.size(22)>0) isGamma = true;
-	else if(fMCSimple.size(211)>0) isPip = true;
+	if(fMCSimple.Size(22)>0) isGamma = true;
+	else if(fMCSimple.Size(211)>0) isPip = true;
 
 	//Get Vertex
 	TVector3 vertex;
