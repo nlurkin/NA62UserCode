@@ -42,6 +42,8 @@ void testGeo::InitHist(){
 	BookHisto("dneutral", new TH1D("dneutral", "Distance difference between simple propagate and detectorAcceptance propagate (neutral)", 200,0,5));
 	BookHisto("dcharged", new TH1D("dcharged", "Distance difference between magPropagate and detectorAcceptance propagate (charged)", 200,0,5));
 	BookHisto("dmag", new TH1D("dmag", "Distance difference between simple propagate and magPropagate (charged)", 200,0,5));
+
+	BookHisto("PathLength", new TH2D("PathLength", "Path length in detectors.", 0,0,0,1000, 0, 1000));
 }
 
 void testGeo::DefineMCSimple(MCSimple *fMCSimple){
@@ -91,6 +93,15 @@ void testGeo::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
 		FillHisto("dmag", distance3D(magPropPos, simplePropPos));
 	}
 
+
+	TString names[14] = {"kCEDAR", "kGTK", "kCHANTI", "kLAV", "kSpectrometer", "kIRC", "kCHOD", "kLKr", "kSAC", "kMUV0", "kMUV1", "kMUV2", "kMUV3", "kHAC"};
+	cout << "Traveled " << fDetectorAcceptanceInstance->GetDetLength(DetectorAcceptance::kSpectrometer) << " mm in straw" << endl;
+	for(int i=0; i<14; i++){
+		if(fDetectorAcceptanceInstance->GetDetAcceptance((DetectorAcceptance::volume)i)){
+			FillHisto("PathLength", names[i], fDetectorAcceptanceInstance->GetDetLength((DetectorAcceptance::volume)i),1);
+			if(fDetectorAcceptanceInstance->GetDetLength((DetectorAcceptance::volume)i)==0) cout << names[i] << endl;
+		}
+	}
 }
 
 void testGeo::PostProcess(){

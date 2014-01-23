@@ -1,0 +1,9 @@
+.setting*
+.*project
+*.root
+lib/
+obj/
+env.sh
+config
+main.cc
+Makefile

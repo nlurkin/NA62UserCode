@@ -1,5 +1,6 @@
-analyzers = tes_gen
-exec = piggg
+analyzers = VertexCDA Pi0Reconstruction
+
+exec = testG
 
 libs = 
 libsdirs = 
