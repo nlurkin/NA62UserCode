@@ -45,11 +45,13 @@ void Photons_0Cluster::InitHist(){
 void Photons_0Cluster::InitOutput(){
 }
 
-void Photons_0Cluster::DefineMCSimple(MCSimple *fMCSimple){
-	fMCSimple->AddParticle(0, 22);
+void Photons_0Cluster::DefineMCSimple(){
+	fMCSimple.AddParticle(0, 22);
 }
 
-void Photons_0Cluster::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void Photons_0Cluster::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	if(fMCSimple.fStatus == MCSimple::kMissing) return;
 	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 

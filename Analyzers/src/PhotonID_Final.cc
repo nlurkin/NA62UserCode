@@ -34,10 +34,12 @@ void PhotonID_Final::InitOutput(){
 	RegisterOutput("photonCandidates", &photonCandidates);
 }
 
-void PhotonID_Final::DefineMCSimple(MCSimple *fMCSimple){
+void PhotonID_Final::DefineMCSimple(){
 }
 
-void PhotonID_Final::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void PhotonID_Final::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	OutputState state;
 	//Get initial clusters
 	vector<TRecoLKrCandidate*> InitClusters = *(vector<TRecoLKrCandidate*>*)GetOutput("associatePhotons.LKrClusters", state);

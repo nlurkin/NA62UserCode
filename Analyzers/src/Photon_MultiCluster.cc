@@ -58,11 +58,13 @@ void Photon_MultiCluster::InitOutput(){
 
 }
 
-void Photon_MultiCluster::DefineMCSimple(MCSimple *fMCSimple){
-	fMCSimple->AddParticle(0, 22);
+void Photon_MultiCluster::DefineMCSimple(){
+	fMCSimple.AddParticle(0, 22);
 }
 
-void Photon_MultiCluster::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void Photon_MultiCluster::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	if(fMCSimple.fStatus == MCSimple::kMissing) return;
 	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 

@@ -39,12 +39,14 @@ void PhotonID_SeedFraction::InitOutput(){
 	RegisterOutput("LKrClusters", &LKrClusters);
 }
 
-void PhotonID_SeedFraction::DefineMCSimple(MCSimple *fMCSimple){
-	fMCSimple->AddParticle(0,22);
-	fMCSimple->AddParticle(0,211);
+void PhotonID_SeedFraction::DefineMCSimple(){
+	fMCSimple.AddParticle(0,22);
+	fMCSimple.AddParticle(0,211);
 }
 
-void PhotonID_SeedFraction::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void PhotonID_SeedFraction::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 
 	TRecoLKrCandidate *lkrCand;

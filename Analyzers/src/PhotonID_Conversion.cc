@@ -45,18 +45,20 @@ void PhotonID_Conversion::InitOutput(){
 	//variableName should be the name of a variable declared in the definition of the class
 }
 
-void PhotonID_Conversion::DefineMCSimple(MCSimple *fMCSimple){
+void PhotonID_Conversion::DefineMCSimple(){
 	//Add particles you want to recover from fMCSimple
-	//	int particleID = fMCSimple->AddParticle(parentID, pdgCode)
+	//	int particleID = fMCSimple.AddParticle(parentID, pdgCode)
 	//parentID : 	0=no parent (=beam particle)
 	//		...
 	//Example
-	//	int kaonID = fMCSimple->AddParticle(0, 321); //ask for beam Kaon
-	//	fMCSimple->AddParticle(kaonID, 211); //ask for positive pion from initial kaon decay
-	fMCSimple->AddParticle(0,22);
+	//	int kaonID = fMCSimple.AddParticle(0, 321); //ask for beam Kaon
+	//	fMCSimple.AddParticle(kaonID, 211); //ask for positive pion from initial kaon decay
+	fMCSimple.AddParticle(0,22);
 }
 
-void PhotonID_Conversion::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void PhotonID_Conversion::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	//Ask the fMCSimple to have the complete set of particles we specified
 	//If the analyzer can run without the complete set, comment the line
 	if(fMCSimple.fStatus == MCSimple::kMissing) return;

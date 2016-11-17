@@ -93,18 +93,20 @@ void Pi0ID::InitOutput(){
 	//defaultValue is the default value if not specified in the command line
 }
 
-void Pi0ID::DefineMCSimple(MCSimple *fMCSimple){
+void Pi0ID::DefineMCSimple(){
 	//Add particles you want to recover from fMCSimple
-	//	int particleID = fMCSimple->AddParticle(parentID, pdgCode)
+	//	int particleID = fMCSimple.AddParticle(parentID, pdgCode)
 	//parentID : 	0=no parent (=beam particle)
 	//		...
 	//Example
-	int kaonID = fMCSimple->AddParticle(0, 321); //ask for beam Kaon
-	fMCSimple->AddParticle(kaonID, 111); //ask for positive pion from initial kaon decay
+	int kaonID = fMCSimple.AddParticle(0, 321); //ask for beam Kaon
+	fMCSimple.AddParticle(kaonID, 111); //ask for positive pion from initial kaon decay
 
 }
 
-void Pi0ID::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void Pi0ID::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	bool withMC = false;
 	//Ask the fMCSimple to have the complete set of particles we specified
 	//If the analyzer can run without the complete set, comment the line

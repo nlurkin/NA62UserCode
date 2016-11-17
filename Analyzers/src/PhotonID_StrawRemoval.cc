@@ -49,12 +49,14 @@ void PhotonID_StrawRemoval::InitOutput(){
 	RegisterOutput("LKrClusters", &LKrClusters);
 }
 
-void PhotonID_StrawRemoval::DefineMCSimple(MCSimple *fMCSimple){
-	fMCSimple->AddParticle(0, 22);
-	fMCSimple->AddParticle(0, 211);
+void PhotonID_StrawRemoval::DefineMCSimple(){
+	fMCSimple.AddParticle(0, 22);
+	fMCSimple.AddParticle(0, 211);
 }
 
-void PhotonID_StrawRemoval::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void PhotonID_StrawRemoval::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 
 	//LKr definition

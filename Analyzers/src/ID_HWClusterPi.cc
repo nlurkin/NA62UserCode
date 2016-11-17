@@ -104,7 +104,7 @@ void ID_HWClusterPi::InitHist(){
         /// \EndMemberDescr 
 }
 
-void ID_HWClusterPi::DefineMCSimple(MCSimple *fMCSimple){
+void ID_HWClusterPi::DefineMCSimple(){
 }
 
 void ID_HWClusterPi::StartOfRunUser(){
@@ -116,7 +116,9 @@ void ID_HWClusterPi::StartOfBurstUser(){
 void ID_HWClusterPi::EndOfBurstUser(){
 }
 
-void ID_HWClusterPi::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void ID_HWClusterPi::Process(int iEvent){
+	Event*  MCTruthEvent = NULL;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 
 	TRecoLKrEvent *lkrEvent;
 	int HWClusterCount, SingleSCellClusterCount = 0;

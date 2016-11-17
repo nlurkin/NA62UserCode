@@ -42,12 +42,14 @@ void PhotonID_EnergyCut::InitOutput(){
 	RegisterOutput("LKrClusters", &LKrClusters);
 }
 
-void PhotonID_EnergyCut::DefineMCSimple(MCSimple *fMCSimple){
-	fMCSimple->AddParticle(0, 22);
-	fMCSimple->AddParticle(0, 211);
+void PhotonID_EnergyCut::DefineMCSimple(){
+	fMCSimple.AddParticle(0, 22);
+	fMCSimple.AddParticle(0, 211);
 }
 
-void PhotonID_EnergyCut::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void PhotonID_EnergyCut::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 
 	//Event type

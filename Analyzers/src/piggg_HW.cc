@@ -153,13 +153,13 @@ void piggg_HW::InitHist(){
 	/// \EndMemberDescr
 }
 
-void piggg_HW::DefineMCSimple(MCSimple *fMCSimple){
+void piggg_HW::DefineMCSimple(){
 	/// \MemberDescr
 	/// \param fMCSimple : MCSimple
 	///
 	/// Setup of fMCSimple. You must specify the generated MC particles you want.\n
 	/// Add particles you want to recover from fMCSimple\n
-	/// int particleID = fMCSimple->AddParticle(parentID, pdgCode)\n
+	/// int particleID = fMCSimple.AddParticle(parentID, pdgCode)\n
 	/// parentID : 	0=no parent (=beam particle)\n
 	/// 	...\n
 	/// Example : you want to retrieve the kaon from the beam, the pi0 an pi+ from the beam kaon and the 2 photons coming from the previous pi0 decay :\n
@@ -194,7 +194,9 @@ void piggg_HW::EndOfBurstUser(){
 	/// \EndMemberDescr
 }
 
-void piggg_HW::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void piggg_HW::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 
 	double W,T;
 	bool passGeom;

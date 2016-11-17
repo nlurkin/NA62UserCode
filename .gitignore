@@ -7,3 +7,6 @@ env.sh
 config
 main.cc
 Makefile
+/build/
+/testAn
+/.gitignore

@@ -139,20 +139,22 @@ void testGeom::InitHist(){
         /// of the histogram is replaced each time a new file is opened.
         /// \EndMemberDescr 
 
-	BookHisto("FirstTouched", new TH1D("FirstTouched", "FirstTouched", 20, 0, 20));
+	BookHisto(new TH1D("FirstTouched", "FirstTouched", 20, 0, 20));
+	BookHisto(new TH1D("Toto", "FirstTouched", 20, 0, 20));
+	BookHisto(new TH1D("Tata", "FirstTouched", 20, 0, 20));
 
 	BookCounter("LKrTouched");
 	NewEventFraction("xxx");
 	AddCounterToEventFraction("xxx", "LKrTouched");
 }
 
-void testGeom::DefineMCSimple(MCSimple *fMCSimple){
+void testGeom::DefineMCSimple(){
         /// \MemberDescr 
         /// \param fMCSimple : MCSimple
         ///
         /// Setup of fMCSimple. You must specify the generated MC particles you want.\n
         /// Add particles you want to recover from fMCSimple\n
-        /// int particleID = fMCSimple->AddParticle(parentID, pdgCode)\n
+        /// int particleID = fMCSimple.AddParticle(parentID, pdgCode)\n
         /// parentID : 	0=no parent (=beam particle)\n
         /// 	...\n
         /// Example : you want to retrieve the kaon from the beam, the pi0 an pi+ from the beam kaon and the 2 photons coming from the previous pi0 decay :\n
@@ -164,11 +166,11 @@ void testGeom::DefineMCSimple(MCSimple *fMCSimple){
         ///
         /// @see ROOT TDatabasePDG for a list of PDG codes and particle naming convention
         /// \EndMemberDescr 
-		int kaonID = fMCSimple->AddParticle(0, 321);
-		fMCSimple->AddParticle(kaonID, 211);
-		int pi0ID = fMCSimple->AddParticle(kaonID, 111);
-		fMCSimple->AddParticle(pi0ID, 22);
-		fMCSimple->AddParticle(pi0ID, 22);
+		int kaonID = fMCSimple.AddParticle(0, 321);
+		fMCSimple.AddParticle(kaonID, 211);
+		int pi0ID = fMCSimple.AddParticle(kaonID, 111);
+		fMCSimple.AddParticle(pi0ID, 22);
+		fMCSimple.AddParticle(pi0ID, 22);
 }
 
 void testGeom::StartOfRunUser(){
@@ -192,29 +194,31 @@ void testGeom::EndOfBurstUser(){
         /// \EndMemberDescr 
 }
 
-void testGeom::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void testGeom::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	//Ask the fMCSimple to have the complete set of particles we specified
 	//If the analyzer can run without the complete set, comment the line
 	if(fMCSimple.fStatus == MCSimple::kMissing){printIncompleteMCWarning(iEvent);return;}
 	//If the analyzer can run without MC data, comment the line
 	if(fMCSimple.fStatus == MCSimple::kEmpty){printNoMCWarning();return;}
 
-	fDetectorAcceptanceInstance->DrawDetector();
+	//fDetectorAcceptanceInstance->DrawDetector();
 
 	fDetectorAcceptanceInstance->FillPath(fMCSimple[211][0]->GetProdPos().Vect(), fMCSimple[211][0]->GetInitialMomentum());
-	//FillHisto("FirstTouched", fDetectorAcceptanceInstance->FirstTouchedDetector());
-	//if(fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr)) IncrementCounter("LKrTouched");
-	fDetectorAcceptanceInstance->CreateTrack(321, fMCSimple[211][0]->GetProdPos().Vect(), fMCSimple[211][0]->GetInitialMomentum(), +1);
-	fDetectorAcceptanceInstance->DrawTracks();
-	return;
+	FillHisto("FirstTouched", fDetectorAcceptanceInstance->FirstTouchedDetector());
+	if(fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr)) IncrementCounter("LKrTouched");
+	//fDetectorAcceptanceInstance->CreateTrack(321, fMCSimple[211][0]->GetProdPos().Vect(), fMCSimple[211][0]->GetInitialMomentum(), +1);
+	//fDetectorAcceptanceInstance->DrawTracks();
+	//return;
 
 	fDetectorAcceptanceInstance->FillPath(fMCSimple[22][0]->GetProdPos().Vect(), fMCSimple[22][0]->GetInitialMomentum());
-	FillHisto("FirstTouched", fDetectorAcceptanceInstance->FirstTouchedDetector());
-	if(fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr)) IncrementCounter("LKrTouched");
+	//FillHisto("FirstTouched", fDetectorAcceptanceInstance->FirstTouchedDetector());
+	//if(fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr)) IncrementCounter("LKrTouched");
 
-	fDetectorAcceptanceInstance->FillPath(fMCSimple[22][1]->GetProdPos().Vect(), fMCSimple[22][1]->GetInitialMomentum());
-	FillHisto("FirstTouched", fDetectorAcceptanceInstance->FirstTouchedDetector());
-	if(fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr)) IncrementCounter("LKrTouched");
+	//fDetectorAcceptanceInstance->FillPath(fMCSimple[22][1]->GetProdPos().Vect(), fMCSimple[22][1]->GetInitialMomentum());
+	//FillHisto("FirstTouched", fDetectorAcceptanceInstance->FirstTouchedDetector());
+	//if(fDetectorAcceptanceInstance->GetDetAcceptance(DetectorAcceptance::kLKr)) IncrementCounter("LKrTouched");
 
 	//You can retrieve MC particles from the fMCSimple Set with (return a vector<KinePart*>
 	//	fMCSimple["particleName"]

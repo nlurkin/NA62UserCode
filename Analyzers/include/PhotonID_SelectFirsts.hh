@@ -7,7 +7,6 @@
 #include "MCSimple.hh"
 #include "DetectorAcceptance.hh"
 
-using namespace std;
 
 class TH1I;
 class TH2F;
@@ -25,8 +24,8 @@ class PhotonID_SelectFirsts : public Analyzer
 		PhotonID_SelectFirsts(BaseAnalysis *ba);
 		void InitHist();
 		void InitOutput();
-		void DefineMCSimple(MCSimple *fMCSimple);
-		void Process(int i, MCSimple &fMCSimple, Event* MCTruthEvent);
+		void DefineMCSimple();
+		void Process(int i);
 		void PostProcess();
 		void ExportPlot();
 		void DrawPlot();

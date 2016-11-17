@@ -39,12 +39,14 @@ void PhotonID_HWCells::InitOutput(){
 	RegisterOutput("LKrClusters", &LKrClusters);
 }
 
-void PhotonID_HWCells::DefineMCSimple(MCSimple *fMCSimple){
-	fMCSimple->AddParticle(0, 22);
-	fMCSimple->AddParticle(0, 211);
+void PhotonID_HWCells::DefineMCSimple(){
+	fMCSimple.AddParticle(0, 22);
+	fMCSimple.AddParticle(0, 211);
 }
 
-void PhotonID_HWCells::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void PhotonID_HWCells::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 
 	//LOOP variables

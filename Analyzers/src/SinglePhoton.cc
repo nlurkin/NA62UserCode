@@ -177,7 +177,7 @@ void SinglePhoton::InitHist(){
 void SinglePhoton::InitOutput(){
 }
 
-void SinglePhoton::DefineMCSimple(MCSimple *fMCSimple){
+void SinglePhoton::DefineMCSimple(){
 	//	K+ 		= 321
 	//	pi+		= 211
 	//	pi0		= 111
@@ -186,10 +186,12 @@ void SinglePhoton::DefineMCSimple(MCSimple *fMCSimple){
 	//	mu-		= 13
 	//	nu_e	= 12
 	//	nu_mu	= 14
-	fMCSimple->AddParticle(0, 22);
+	fMCSimple.AddParticle(0, 22);
 }
 
-void SinglePhoton::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void SinglePhoton::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	if(fMCSimple.fStatus == MCSimple::kMissing) return;
 	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 

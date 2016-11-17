@@ -7,7 +7,6 @@
 #include "MCSimple.hh"
 #include "DetectorAcceptance.hh"
 #include <TCanvas.h>
-using namespace std;
 
 class TH1I;
 class TH2F;
@@ -23,8 +22,8 @@ class piggg_HW : public Analyzer
 		piggg_HW(BaseAnalysis *ba);
 		void InitHist();
 		void InitOutput();
-		void DefineMCSimple(MCSimple *fMCSimple);
-		void Process(int i, MCSimple &fMCSimple, Event* MCTruthEvent);
+		void DefineMCSimple();
+		void Process(int i);
 		void StartOfBurstUser();
 		void EndOfBurstUser();
 		void StartOfRunUser();

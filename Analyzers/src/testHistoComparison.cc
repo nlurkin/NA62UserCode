@@ -5,24 +5,8 @@
 #include "functions.hh"
 #include "Event.hh"
 #include <TChain.h>
+#include "Persistency.hh"
 using namespace std;
-
-
-#include "TRecoGigaTrackerEvent.hh"
-/*#include "TRecoRICHEvent.hh"
-#include "TRecoCHANTIEvent.hh"
-#include "TRecoCedarEvent.hh"
-#include "TRecoCHODEvent.hh"
-#include "TRecoMUV1Event.hh"
-#include "TRecoMUV2Event.hh"
-#include "TRecoMUV3Event.hh"
-#include "TRecoMUV0Event.hh"
-#include "TRecoHACEvent.hh"
-#include "TRecoIRCEvent.hh"
-#include "TRecoLAVEvent.hh"
-#include "TRecoSACEvent.hh"
-#include "TRecoLKrEvent.hh"
-#include "TRecoSpectrometerEvent.hh"*/
 
 /*#include <TString.h>
 #include <TH1I.h>
@@ -139,21 +123,21 @@ void testHistoComparison::InitHist(){
 	BookHisto("h1", new TH1D("h1", "h2", 50, 70,80));
 }
 
-void testHistoComparison::DefineMCSimple(MCSimple *fMCSimple){
+void testHistoComparison::DefineMCSimple(){
 	/// \MemberDescr
 	/// \param fMCSimple : MCSimple
 	///
 	/// Setup of fMCSimple. You must specify the generated MC particles you want.\n
 	/// Add particles you want to recover from fMCSimple\n
-	/// int particleID = fMCSimple->AddParticle(parentID, pdgCode)\n
+	/// int particleID = fMCSimple.AddParticle(parentID, pdgCode)\n
 	/// parentID : 	0=no parent (=beam particle)\n
 	/// 	...\n
 	/// Example : you want to retrieve the kaon from the beam, the pi0 an pi+ from the beam kaon and the 2 photons coming from the previous pi0 decay :\n
-	/// 	int kaonID = fMCSimple->AddParticle(0, 321) //Ask beam kaon (sequence ID=1)\n
-	/// 	fMCSimple->AddParticle(kaonID, 211) //Ask pi+ from previous kaon (sequence ID=2)\n
-	/// 	int pi0ID = fMCSimple->AddParticle(kaonID, 111) //Ask pi0 from previous kaon (sequence ID=3)\n
-	/// 	fMCSimple->AddParticle(pi0ID, 22) //Ask first gamma from previous pi0 (sequence ID=4)\n
-	/// 	fMCSimple->AddParticle(pi0ID, 22) //Ask second gamma from previous pi0 (sequence ID=4)
+	/// 	int kaonID = fMCSimple.AddParticle(0, 321) //Ask beam kaon (sequence ID=1)\n
+	/// 	fMCSimple.AddParticle(kaonID, 211) //Ask pi+ from previous kaon (sequence ID=2)\n
+	/// 	int pi0ID = fMCSimple.AddParticle(kaonID, 111) //Ask pi0 from previous kaon (sequence ID=3)\n
+	/// 	fMCSimple.AddParticle(pi0ID, 22) //Ask first gamma from previous pi0 (sequence ID=4)\n
+	/// 	fMCSimple.AddParticle(pi0ID, 22) //Ask second gamma from previous pi0 (sequence ID=4)
 	///
 	/// @see ROOT TDatabasePDG for a list of PDG codes and particle naming convention
 	/// \EndMemberDescr
@@ -180,7 +164,9 @@ void testHistoComparison::EndOfBurstUser(){
 	/// \EndMemberDescr
 }
 
-void testHistoComparison::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void testHistoComparison::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	/// \MemberDescr
 	/// \param iEvent : Event number
 	/// \param fMCSimple : MCSimple

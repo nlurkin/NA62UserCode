@@ -46,10 +46,10 @@ void testGeo::InitHist(){
 	BookHisto("PathLength", new TH2D("PathLength", "Path length in detectors.", 0,0,0,1000, 0, 1000));
 }
 
-void testGeo::DefineMCSimple(MCSimple *fMCSimple){
+void testGeo::DefineMCSimple(){
 	//Get the pi+
-	int kaonID = fMCSimple->AddParticle(0, 321);
-	fMCSimple->AddParticle(kaonID, 211);
+	int kaonID = fMCSimple.AddParticle(0, 321);
+	fMCSimple.AddParticle(kaonID, 211);
 }
 
 void testGeo::StartOfRunUser(){
@@ -61,7 +61,9 @@ void testGeo::StartOfBurstUser(){
 void testGeo::EndOfBurstUser(){
 }
 
-void testGeo::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void testGeo::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	//We need the pi+. Skip the event if not found
 	if(fMCSimple.fStatus == MCSimple::kMissing){printIncompleteMCWarning(iEvent);return;}
 

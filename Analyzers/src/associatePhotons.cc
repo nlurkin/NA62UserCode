@@ -44,12 +44,14 @@ void associatePhotons::InitOutput(){
 	AddParam("Export", "bool", &allowExport, false);
 }
 
-void associatePhotons::DefineMCSimple(MCSimple *fMCSimple){
-	/*fMCSimple->AddParticle(0, 22);
-	fMCSimple->AddParticle(0, 211);*/
+void associatePhotons::DefineMCSimple(){
+	/*fMCSimple.AddParticle(0, 22);
+	fMCSimple.AddParticle(0, 211);*/
 }
 
-void associatePhotons::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void associatePhotons::Process(int iEvent){
+	Event*  MCTruthEvent = NULL;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	/*if(fMCSimple.status == MCSimple::kEmpty){
 		FillHisto("BadMC", 0);
 		return;

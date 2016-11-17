@@ -65,18 +65,20 @@ void BasicSelection::InitOutput(){
 	RegisterOutput("selectionLevel", &selectionLevel);
 }
 
-void BasicSelection::DefineMCSimple(MCSimple *fMCSimple){
+void BasicSelection::DefineMCSimple(){
 	//Add particles you want to recover from fMCSimple
-	//	int particleID = fMCSimple->AddParticle(parentID, pdgCode)
+	//	int particleID = fMCSimple.AddParticle(parentID, pdgCode)
 	//parentID : 	0=no parent (=beam particle)
 	//		...
 	//Example
-	//	int kaonID = fMCSimple->AddParticle(0, 321); //ask for beam Kaon
-	//	fMCSimple->AddParticle(kaonID, 211); //ask for positive pion from initial kaon decay
+	//	int kaonID = fMCSimple.AddParticle(0, 321); //ask for beam Kaon
+	//	fMCSimple.AddParticle(kaonID, 211); //ask for positive pion from initial kaon decay
 
 }
 
-void BasicSelection::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void BasicSelection::Process(int iEvent){
+	Event*  MCTruthEvent = NULL;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	//Ask the fMCSimple to have the complete set of particles we specified
 	//If the analyzer can run without the complete set, comment the line
 	//if(fMCSimple.status == MCSimple::kMissing) return;

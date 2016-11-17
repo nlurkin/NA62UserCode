@@ -104,14 +104,14 @@ void piggg_gen::InitHist(){
 	//	DefineSampleSizeCounter("Cuts", "Total");
 }
 
-void piggg_gen::DefineMCSimple(MCSimple *fMCSimple){
+void piggg_gen::DefineMCSimple(){
 	//Add particles you want to recover from fMCSimple
-	//	int particleID = fMCSimple->AddParticle(parentID, pdgCode)
+	//	int particleID = fMCSimple.AddParticle(parentID, pdgCode)
 	//parentID : 	0=no parent (=beam particle)
 	//		...
 	//Example
-	//	int kaonID = fMCSimple->AddParticle(0, 321); //ask for beam Kaon
-	//	fMCSimple->AddParticle(kaonID, 211); //ask for positive pion from initial kaon decay
+	//	int kaonID = fMCSimple.AddParticle(0, 321); //ask for beam Kaon
+	//	fMCSimple.AddParticle(kaonID, 211); //ask for positive pion from initial kaon decay
 	//Some PDG codes (add minus for antiparticles) :
 	//	K+ 		= 321
 	//	pi+		= 211
@@ -122,15 +122,17 @@ void piggg_gen::DefineMCSimple(MCSimple *fMCSimple){
 	//	nu_e	= 12
 	//	nu_mu	= 14
 
-	int kaonID = fMCSimple->AddParticle(0, 321);
-	fMCSimple->AddParticle(kaonID, 211);
-	int pi0ID = fMCSimple->AddParticle(kaonID, 111);
-	fMCSimple->AddParticle(pi0ID, 22);
-	fMCSimple->AddParticle(pi0ID, 22);
-	fMCSimple->AddParticle(kaonID, 22);
+	int kaonID = fMCSimple.AddParticle(0, 321);
+	fMCSimple.AddParticle(kaonID, 211);
+	int pi0ID = fMCSimple.AddParticle(kaonID, 111);
+	fMCSimple.AddParticle(pi0ID, 22);
+	fMCSimple.AddParticle(pi0ID, 22);
+	fMCSimple.AddParticle(kaonID, 22);
 }
 
-void piggg_gen::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void piggg_gen::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	//Ask the fMCSimple to have the complete set of particles we specified
 	//If the analyzer can run without the complete set, comment the line
 	if(fMCSimple.fStatus == MCSimple::kMissing) return;

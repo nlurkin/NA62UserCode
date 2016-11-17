@@ -47,12 +47,14 @@ void PhotonID_RMSSelection::InitOutput(){
 	RegisterOutput("LKrClusters", &LKrClusters);
 }
 
-void PhotonID_RMSSelection::DefineMCSimple(MCSimple *fMCSimple){
-	fMCSimple->AddParticle(0, 22);
-	fMCSimple->AddParticle(0, 211);
+void PhotonID_RMSSelection::DefineMCSimple(){
+	fMCSimple.AddParticle(0, 22);
+	fMCSimple.AddParticle(0, 211);
 }
 
-void PhotonID_RMSSelection::Process(int iEvent, MCSimple &fMCSimple, Event* MCTruthEvent){
+void PhotonID_RMSSelection::Process(int iEvent){
+	Event*  MCTruthEvent;
+	if(GetWithMC())  MCTruthEvent= GetMCEvent();
 	if(fMCSimple.fStatus == MCSimple::kEmpty) return;
 
 	TRecoLKrCandidate *lkrCand;
