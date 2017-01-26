@@ -194,6 +194,14 @@ void piggg_HW::EndOfBurstUser(){
 	/// \EndMemberDescr
 }
 
+void piggg_HW::ProcessSpecialTriggers(int){
+	/// \MemberDescr
+	/// \param iEvent : Special event number
+	///
+	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
+	/// \EndMemberDescr
+}
+
 void piggg_HW::Process(int iEvent){
 	Event*  MCTruthEvent;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

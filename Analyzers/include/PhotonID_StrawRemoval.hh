@@ -26,6 +26,7 @@ class PhotonID_StrawRemoval : public Analyzer
 		void InitHist();
 		void InitOutput();
 		void DefineMCSimple();
+		void ProcessSpecialTriggers(int iEvent);
 		void Process(int i);
 		void PostProcess();
 		void ExportPlot();

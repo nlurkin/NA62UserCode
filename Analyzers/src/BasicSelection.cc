@@ -76,6 +76,14 @@ void BasicSelection::DefineMCSimple(){
 
 }
 
+void BasicSelection::ProcessSpecialTriggers(int){
+	/// \MemberDescr
+	/// \param iEvent : Special event number
+	///
+	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
+	/// \EndMemberDescr
+}
+
 void BasicSelection::Process(int iEvent){
 	Event*  MCTruthEvent = NULL;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

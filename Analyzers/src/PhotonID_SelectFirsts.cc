@@ -80,6 +80,14 @@ void PhotonID_SelectFirsts::DefineMCSimple(){
 
 }
 
+void PhotonID_SelectFirsts::ProcessSpecialTriggers(int){
+	/// \MemberDescr
+	/// \param iEvent : Special event number
+	///
+	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
+	/// \EndMemberDescr
+}
+
 void PhotonID_SelectFirsts::Process(int iEvent){
 	Event*  MCTruthEvent;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

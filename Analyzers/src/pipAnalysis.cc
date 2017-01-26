@@ -86,6 +86,14 @@ void pipAnalysis::DefineMCSimple(){
 
 }
 
+void pipAnalysis::ProcessSpecialTriggers(int){
+	/// \MemberDescr
+	/// \param iEvent : Special event number
+	///
+	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
+	/// \EndMemberDescr
+}
+
 void pipAnalysis::Process(int iEvent){
 	Event*  MCTruthEvent;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

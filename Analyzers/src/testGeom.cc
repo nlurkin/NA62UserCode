@@ -194,6 +194,14 @@ void testGeom::EndOfBurstUser(){
         /// \EndMemberDescr 
 }
 
+void testGeom::ProcessSpecialTriggers(int){
+	/// \MemberDescr
+	/// \param iEvent : Special event number
+	///
+	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
+	/// \EndMemberDescr
+}
+
 void testGeom::Process(int iEvent){
 	Event*  MCTruthEvent;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

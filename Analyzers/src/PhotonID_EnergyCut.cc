@@ -47,6 +47,14 @@ void PhotonID_EnergyCut::DefineMCSimple(){
 	fMCSimple.AddParticle(0, 211);
 }
 
+void PhotonID_EnergyCut::ProcessSpecialTriggers(int){
+	/// \MemberDescr
+	/// \param iEvent : Special event number
+	///
+	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
+	/// \EndMemberDescr
+}
+
 void PhotonID_EnergyCut::Process(int iEvent){
 	Event*  MCTruthEvent;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

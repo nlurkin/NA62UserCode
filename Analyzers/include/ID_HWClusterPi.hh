@@ -23,6 +23,7 @@ class ID_HWClusterPi : public Analyzer
 		void InitHist();
 		void InitOutput();
 		void DefineMCSimple();
+		void ProcessSpecialTriggers(int iEvent);
 		void Process(int i);
 		void StartOfBurstUser();
 		void EndOfBurstUser();
