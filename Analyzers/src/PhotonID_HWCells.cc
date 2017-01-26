@@ -44,14 +44,6 @@ void PhotonID_HWCells::DefineMCSimple(){
 	fMCSimple.AddParticle(0, 211);
 }
 
-void PhotonID_HWCells::ProcessSpecialTriggers(int){
-	/// \MemberDescr
-	/// \param iEvent : Special event number
-	///
-	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
-	/// \EndMemberDescr
-}
-
 void PhotonID_HWCells::Process(int iEvent){
 	Event*  MCTruthEvent;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

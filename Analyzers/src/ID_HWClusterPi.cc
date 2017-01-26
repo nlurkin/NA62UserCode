@@ -116,14 +116,6 @@ void ID_HWClusterPi::StartOfBurstUser(){
 void ID_HWClusterPi::EndOfBurstUser(){
 }
 
-void ID_HWClusterPi::ProcessSpecialTriggers(int){
-	/// \MemberDescr
-	/// \param iEvent : Special event number
-	///
-	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
-	/// \EndMemberDescr
-}
-
 void ID_HWClusterPi::Process(int iEvent){
 	Event*  MCTruthEvent = NULL;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

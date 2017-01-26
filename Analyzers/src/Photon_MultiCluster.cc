@@ -62,14 +62,6 @@ void Photon_MultiCluster::DefineMCSimple(){
 	fMCSimple.AddParticle(0, 22);
 }
 
-void Photon_MultiCluster::ProcessSpecialTriggers(int){
-	/// \MemberDescr
-	/// \param iEvent : Special event number
-	///
-	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
-	/// \EndMemberDescr
-}
-
 void Photon_MultiCluster::Process(int iEvent){
 	Event*  MCTruthEvent;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

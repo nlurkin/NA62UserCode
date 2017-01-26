@@ -49,14 +49,6 @@ void associatePhotons::DefineMCSimple(){
 	fMCSimple.AddParticle(0, 211);*/
 }
 
-void associatePhotons::ProcessSpecialTriggers(int){
-	/// \MemberDescr
-	/// \param iEvent : Special event number
-	///
-	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
-	/// \EndMemberDescr
-}
-
 void associatePhotons::Process(int iEvent){
 	Event*  MCTruthEvent = NULL;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();

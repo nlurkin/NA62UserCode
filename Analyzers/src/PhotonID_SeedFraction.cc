@@ -44,14 +44,6 @@ void PhotonID_SeedFraction::DefineMCSimple(){
 	fMCSimple.AddParticle(0,211);
 }
 
-void PhotonID_SeedFraction::ProcessSpecialTriggers(int){
-	/// \MemberDescr
-	/// \param iEvent : Special event number
-	///
-	/// Process method for special triggers. Called on each special trigger event after each start of burst.\n
-	/// \EndMemberDescr
-}
-
 void PhotonID_SeedFraction::Process(int iEvent){
 	Event*  MCTruthEvent;
 	if(GetWithMC())  MCTruthEvent= GetMCEvent();
